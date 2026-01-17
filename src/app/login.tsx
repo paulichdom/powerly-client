@@ -15,6 +15,7 @@ export default function Login() {
     signIn({ access: 'access-token', refresh: 'refresh-token' });
     router.push('/');
   };
+
   return (
     <>
       <FocusAwareStatusBar />

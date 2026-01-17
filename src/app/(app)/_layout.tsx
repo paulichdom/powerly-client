@@ -12,9 +12,11 @@ import { useAuth, useIsFirstTime } from '@/lib';
 export default function TabLayout() {
   const status = useAuth.use.status();
   const [isFirstTime] = useIsFirstTime();
+
   const hideSplash = useCallback(async () => {
     await SplashScreen.hideAsync();
   }, []);
+
   useEffect(() => {
     if (status !== 'idle') {
       setTimeout(() => {
@@ -26,9 +28,11 @@ export default function TabLayout() {
   if (isFirstTime) {
     return <Redirect href="/onboarding" />;
   }
+
   if (status === 'signOut') {
     return <Redirect href="/login" />;
   }
+
   return (
     <Tabs>
       <Tabs.Screen
