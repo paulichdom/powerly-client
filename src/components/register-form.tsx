@@ -9,6 +9,8 @@ import * as z from 'zod';
 import { Button, ControlledInput, Text, View } from '@/components/ui';
 
 const schema = z.object({
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
   name: z.string().optional(),
   email: z
     .string({
@@ -24,19 +26,21 @@ const schema = z.object({
 
 export type FormType = z.infer<typeof schema>;
 
-export type LoginFormProps = {
+export type RegisterFormProps = {
   onSubmit?: SubmitHandler<FormType>;
 };
 
-export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
+export const RegisterForm = ({ onSubmit = () => {} }: RegisterFormProps) => {
   const router = useRouter();
+
   const { handleSubmit, control } = useForm<FormType>({
     resolver: zodResolver(schema),
   });
 
   const handleNavigateToLogin = () => {
-    router.push('/register');
+    router.push('/login');
   };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -49,20 +53,25 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
             testID="form-title"
             className="pb-6 text-center text-4xl font-bold"
           >
-            Sign In
+            Register
           </Text>
 
           <Text className="mb-6 max-w-xs text-center text-gray-500">
-            Welcome! 👋 This is a demo login screen! Feel free to use any email
-            and password to sign in and try it out.
+            Enter the requested data to register your account
           </Text>
         </View>
 
         <ControlledInput
-          testID="name"
+          testID="first_name"
           control={control}
-          name="name"
-          label="Name"
+          name="first_name"
+          label="First name"
+        />
+        <ControlledInput
+          testID="last_name"
+          control={control}
+          name="last_name"
+          label="Last name"
         />
 
         <ControlledInput
@@ -80,15 +89,21 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
           secureTextEntry={true}
         />
         <Button
-          testID="login-button"
-          label="Login"
+          testID="register-button"
+          label="Register"
           onPress={handleSubmit(onSubmit)}
         />
         <Button
           variant="link"
           testID="register-button"
-          label="Don't have and account? Register here"
+          label="Already have an account? Sign in here"
           onPress={handleNavigateToLogin}
+        />
+        <Button
+          variant="link"
+          testID="register-button"
+          label="[TMP] Go to verify email"
+          onPress={() => router.push('/verify-email')}
         />
       </View>
     </KeyboardAvoidingView>
