@@ -9,10 +9,21 @@ type Variables = RegisterBody;
 type Response = ApiResponse<RegisterResponse>;
 
 export const useRegisterUser = createMutation<Response, Variables, AxiosError>({
-  mutationFn: async (variables) =>
-    client({
-      url: 'auth/register',
-      method: 'POST',
-      data: variables,
-    }).then((response) => response.data),
+  mutationFn: async (variables) => {
+    console.log('[auth] register request', variables);
+
+    try {
+      const response = await client({
+        url: 'auth/register',
+        method: 'POST',
+        data: variables,
+      });
+
+      console.log('[auth] register success', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('[auth] register error', error);
+      throw error;
+    }
+  },
 });

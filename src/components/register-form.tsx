@@ -99,6 +99,12 @@ export const RegisterForm = ({ onSubmit = () => {} }: RegisterFormProps) => {
           label="Already have an account? Sign in here"
           onPress={handleNavigateToLogin}
         />
+        <Button
+          variant="link"
+          testID="register-button"
+          label="[TMP] Go to verify email"
+          onPress={() => router.push('/verify-email')}
+        />
       </View>
     </KeyboardAvoidingView>
   );
