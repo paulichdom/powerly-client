@@ -6,7 +6,8 @@ import { getToken, removeToken, setToken } from './utils';
 
 interface AuthState {
   token: TokenType | null;
-  status: 'idle' | 'signOut' | 'signIn';
+  email_verified: number;
+  status: 'idle' | 'signOut' | 'signIn' | 'unverified';
   signIn: (data: TokenType) => void;
   signOut: () => void;
   hydrate: () => void;
@@ -15,6 +16,7 @@ interface AuthState {
 const _useAuth = create<AuthState>((set, get) => ({
   status: 'idle',
   token: null,
+  email_verified: 0,
   signIn: (token) => {
     setToken(token);
     set({ status: 'signIn', token });

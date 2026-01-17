@@ -20,7 +20,7 @@ export default function Register() {
           type: 'success',
         });
 
-        router.push('/login');
+        router.push('/verify-email');
       },
       onError: () => {
         showErrorMessage('Error creating account');

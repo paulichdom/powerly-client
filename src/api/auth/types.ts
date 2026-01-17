@@ -23,3 +23,20 @@ export type RegisterResponse = {
   longitude: string;
   country_id: number;
 };
+
+export type VerifyEmailBody = {
+  code: string;
+  email: string;
+};
+
+export type VerifyEmailResponse = {
+  id: number;
+  customer_type: string;
+  first_name: string;
+  last_name: string;
+  full_name: string;
+  contact_number: string;
+  email: string;
+  balance: string;
+  access_token: string;
+};
